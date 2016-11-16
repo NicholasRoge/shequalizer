@@ -1,5 +1,3 @@
-#!/usr/bin/env python2.7
-
 import struct
 import sys
 
@@ -83,12 +81,12 @@ class WavFile(AudioFile):
         assert(self._file.read(4) == "fmt ")
         self._file.read(4) #fmt chunk size
         fields = [
-            ("format", "h"),
-            ("channel.count", "H"),
-            ("sample.rate", "I"),
-            (None, "I"),
-            ("sample.size", "H"),
-            ("sample.bits", "H"),
+            ("format", "h"),        # 0
+            ("channel.count", "H"), # 2
+            ("sample.rate", "I"),   # 4
+            (None, "I"),            # 8
+            ("sample.size", "H"),   # 12
+            ("sample.bits", "H"),   # 14
         ]
 
         data_format = "".join((field[1] for field in fields))
