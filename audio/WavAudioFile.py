@@ -44,10 +44,17 @@ class WavAudioFile(AudioStream):
             self.__file.seek(chunk["offset"] + chunk["size"])
 
     def _chunk(self, chunk_id, offset, format):
-        size = calcsize(format)
+        if chunk_id not in self.__chunk:
+            return None
 
         chunk = self.__chunk[chunk_id]
-        value = unpack(format, chunk[offset:offset + size])
+
+        key = (offset, format)
+        if key not in chunk["cache"]:
+            size = calcsize(format)
+            value = unpack(format, chunk[offset:offset + size])
+
+        return chunk["cache"][key]
 
     @property
     def sampleRate(self):

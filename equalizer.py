@@ -9,7 +9,9 @@ from matplotlib import pyplot
 
 
 path = sys.argv[1]
-with audio.open(path) as file:
+with audio.open(path) as stream:
+    print(stream)
+    sys.exit(1)
     w = np.fft.fft([sample[0] for sample in file[0:file.sample_count]])
     frequencies = np.fft.fftfreq(len(w))
       

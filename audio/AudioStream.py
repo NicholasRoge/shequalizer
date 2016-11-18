@@ -40,4 +40,13 @@ class AudioStream(object):
         for sample in samples:
             self.writeSample(sample)
 
+def open(path, mode = "r", buffering = -1):
+    offset = path.rfind(".")
+    if offset == -1:
+        return None
 
+    extension = path[offset + 1:].lower()
+    if extension == "wav":
+        return WavAudioFile(path, mode)
+    else:
+        raise NotImplementedError()
